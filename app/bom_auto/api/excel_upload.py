@@ -13,7 +13,7 @@ import openpyxl as op
 
 async def create_upload_file(file: UploadFile = File(...)):
     # contents = await file.read()
-    wb = op.load_workbook(file)
+    wb = op.load_workbook(file.file)
     sheet1 = wb['原表']
 
     # 4.获取工作表名字列表
