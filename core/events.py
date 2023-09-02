@@ -1,13 +1,13 @@
 from typing import Callable
 
-from app.urls import main_router
+from app.urls import all_router
 from core import server, FastAPI
 
 
 def startup(app: FastAPI) -> Callable:
     async def app_start():
         # 挂接子路由
-        main_router(app=app)
+        all_router(app=app)
         # 异常拦截
         server.exception()
         # 链接数据库
