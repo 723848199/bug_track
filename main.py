@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 
 app = server.create_app()
-'''
+
 app.mount("/", StaticFiles(directory=r"E:\bug_track\vue"), name="dist")
 
 from fastapi import FastAPI, Request
@@ -21,7 +21,17 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory=r"E:\bug_track\vue")
 security = HTTPBasic()
-'''
+@app.get("/")
+def login_form(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.post("/login")
+def login(credentials: HTTPBasicCredentials = security):
+    if credentials.username == "admin" and credentials.password == "password":
+        return {"Login": "Success"}
+    else:
+        return {"Login": "Failed"}
+
 
 
 # 事件监听
