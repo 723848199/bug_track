@@ -65,22 +65,35 @@
             text-decoration-line: none;
             color: #abc1ee;
         }
+        .btn {
+        　　font-size: 16px;
+            border:none;
+        }
+        style{
+            "width: 300px;
+             height: 20px;
+             padding: 0px;
+             margin: 5px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-wrapper">
-            <div class="header">Login</div>
-            <div class="form-wrapper">
-                <input type="text" name="username" placeholder="username" class="input-item">
-                <input type="password" name="password" placeholder="password" class="input-item">
-                <div class="btn">Login</div>
-            </div>
-            <div class="msg">
-                Don't have account?
-                <a href="#">Sign up</a>
+<div class="container">
+    <div class="login-wrapper">
+        <div class="header">Login</div>
+        <div class="form-wrapper">
+            <input type="text" name="username" placeholder="username" class="input-item">
+            <input type="password" name="password" placeholder="password" class="input-item">
+            <div class="btn">
+                <button type="style" onclick="location.href='http://127.0.0.1:8080/redoc'"> 登   陸 </button>
             </div>
         </div>
+        <div class="msg">
+            Don't have account?
+            <button onclick="location.href='https://www.douyin.com'">註冊</button>
+        </div>
     </div>
+</div>
 </body>
 </html>

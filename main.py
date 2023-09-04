@@ -25,10 +25,11 @@ security = HTTPBasic()
 def login_form(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+
 @app.post("/login")
 def login(credentials: HTTPBasicCredentials = security):
     if credentials.username == "admin" and credentials.password == "password":
-        return {"Login": "Success"}
+        return templates.TemplateResponse("login.html")
     else:
         return {"Login": "Failed"}
 
@@ -36,7 +37,6 @@ def login(credentials: HTTPBasicCredentials = security):
 # 事件监听
 app.add_event_handler('startup', startup(app))
 app.add_event_handler('shutdown', stopping(app))
-
 
 async def demo():
     # user = await User.all()
