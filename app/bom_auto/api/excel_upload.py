@@ -15,11 +15,9 @@ import os
 from fastapi.responses import FileResponse
 
 
-
-
 async def create_upload_file(file: UploadFile = File(...)):
     '''
-         客户可在此  上传BOM 操作表
+    客户可在此  上传BOM 操作表
     '''
     # contents = await file.read()
     wb = op.load_workbook(file.file)
