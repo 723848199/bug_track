@@ -1,0 +1,16 @@
+import os
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse  # 响应html
+from fastapi.staticfiles import StaticFiles # 设置静态目录
+
+# 配置1，添加静态资源
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+# 配置2，添加根索引路径
+@app.get("/")
+def main():
+    html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html')
+    html_content = ''
+    with open(html_path,encoding='utf-8') as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content, status_code=200)

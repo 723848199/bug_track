@@ -34,7 +34,7 @@ async def create_download_file(filename: str):
     '''
      客户可在此 下载 BOM 物料表模板文件
     '''
-    file_path = "/Users/pll/Code/bug_track/bom_auto.xlsx"
+    file_path = r"E:\bug_track\app\bom_auto\model_excel\bom_auto.xlsx"
     if os.path.exists(file_path):
         return FileResponse(file_path,filename='123.xlsx',media_type='xlsx')
     else:
@@ -47,7 +47,7 @@ async def download_bom():
          客户可在此 下载 新BOM 表
     '''
 
-    file_path = "/Users/pll/Code/bug_track/bom_auto.xlsx"
+    file_path = r"E:\bug_track\app\bom_auto\model_excel\bom_auto.xlsx"
     bom_auto(path=file_path)
     return FileResponse(file_path, filename='new_bom.xlsx', media_type='xlsx')
 

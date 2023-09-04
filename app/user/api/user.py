@@ -32,3 +32,5 @@ async def reset_password(user: User = Depends(check_jwt_token), new_password: st
     new_password = server.pwd_context.hash(new_password)
     await User.filter(pk=user.pk).update(password=new_password)
     return '操作成功'
+
+

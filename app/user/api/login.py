@@ -9,6 +9,16 @@ from common.exception import HTTPException
 from common.sms import SMS
 
 
+'''
+from main import templates, security
+async def login_form(request: Request, vue=None):
+    return templates.TemplateResponse(r"E:\bug_track\vue\login.html", {"request": request})
+def login_info(credentials: HTTPBasicCredentials = security):
+    if credentials.username == "admin" and credentials.password == "password":
+        return {"Login": "Success"}
+    else:
+        return {"Login": "Failed"}
+'''
 async def register(req: Request, user: Login = Body(), code: str = Body(default=None),
                    ):
     if await User.get_or_none(account=user.account):

@@ -20,6 +20,9 @@ def user_routers(app: FastAPI):
     app.include_router(login_router, tags=['登录'])
     app.include_router(user_router, prefix='/user', tags=['用户'])
 
+#
+# login_router.get("/")(login_form)
+# login_router.post("/login")(login_info)
 
 login_router.post('/register', summary='用户注册', response_model=UserOut)(register)
 login_router.post('/login', summary='用户登录')(login)

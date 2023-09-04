@@ -1,10 +1,27 @@
-import uvicorn
+import uvicorn as uvicorn
+from starlette.middleware.cors import CORSMiddleware
 
 from core.events import startup, stopping
 from core.server import server
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 
 app = server.create_app()
+'''
+app.mount("/", StaticFiles(directory=r"E:\bug_track\vue"), name="dist")
+
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory=r"E:\bug_track\vue")
+security = HTTPBasic()
+'''
 
 
 # 事件监听
@@ -14,12 +31,11 @@ app.add_event_handler('shutdown', stopping(app))
 
 async def demo():
     # user = await User.all()
-
     # print(user)
     return '123'
 
 
-app.get('/')(demo)
+
 
 # 运行app
 if __name__ == '__main__':
