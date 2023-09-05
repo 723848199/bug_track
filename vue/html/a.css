@@ -1,0 +1,169 @@
+* {
+  padding: 0;
+}
+
+#nav_meun_wrap {
+  width: 210px;
+}
+
+.nav_meun_wrap {
+  transition: width 0.28s;
+  background-color: #304156;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.menu_title {
+  margin-left: 4px;
+}
+
+.sub_menu {
+  color: #fff;
+  position: relative;
+}
+
+.nav_meun_wrap ul a {
+  display: inline-block;
+  width: 100%;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sub_menu,
+.nav_meun_wrap ul a li {
+  line-height: 45px;
+}
+
+.nav_meun_wrap li {
+  list-style: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.nav_meun_wrap li ul {
+  display: none;
+}
+
+.nav_meun_wrap .arrow_icon {
+  position: absolute;
+  right: 20px;
+}
+
+.sub_menu:hover,
+.nav_meun_wrap ul a:hover {
+  background-color: rgb(67, 74, 80);
+}
+
+/* 设置菜单的padding */
+.sub_menu {
+  padding: 0 20px;
+}
+
+.nav_meun_wrap a li {
+  padding: 0 20px;
+}
+
+.nav_meun_wrap li ul li .sub_menu {
+  padding: 0 40px;
+}
+
+.nav_meun_wrap li ul a li {
+  padding: 0 40px;
+}
+
+.nav_meun_wrap li ul ul a li {
+  padding: 0 60px;
+}
+
+/* 折叠菜单 */
+.nav_meun_wrap li ul.show_collapse {
+  display: block;
+}
+
+.nav_meun_wrap li ul.hide_collapse {
+  display: none;
+}
+
+/* 折叠导航 */
+.collapse_nav .sidebar_nav_menu {
+  width: 54px !important;
+}
+
+.collapse_nav {
+  width: 54px !important;
+}
+
+.collapse_nav li ul {
+  display: none !important;
+}
+
+.collapse_nav .menu_title {
+  display: none !important;
+}
+
+.collapse_nav .arrow_icon {
+  display: none !important;
+}
+
+.collapse_nav a li,
+.collapse_nav .sub_menu,
+.collapse_nav li ul a li,
+.collapse_nav li ul ul a li {
+  padding: 0;
+  text-align: center;
+}
+
+/* tipMeun */
+.tooltip_popper.is_dark {
+  background: #303133;
+  color: #fff;
+}
+
+.tooltip_popper {
+  position: absolute;
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 2000;
+  font-size: 12px;
+  line-height: 1.2;
+  min-width: 10px;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+.tooltip_popper .popper_arrow {
+  border-width: 6px;
+}
+
+.tooltip_popper .popper_arrow,
+.tooltip_popper .popper_arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  left: -12px;
+  border-color: #303133;
+  border-style: solid;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+
+.tooltip_popper_meun {
+  display: none;
+  background-color: rgb(48, 65, 86);
+  z-index: 2036;
+  width: 200px;
+  border: none;
+  padding: 5px 0;
+  border-radius: 2px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  max-height: 100vh;
+  overflow-y: auto;
+  margin-left: 60px;
+}
