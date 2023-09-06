@@ -5,9 +5,26 @@ from core.events import startup, stopping
 from core.server import server
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Union
+
+
+class Item(BaseModel):
+    name: str
+    age: float
+    is_TrueMan: Union[bool, None] = None
+
 
 app = server.create_app()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="http://localhost:5173/",
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.mount("/", StaticFiles(directory=r"E:\bug_track\vue"), name="dist")
 
 from fastapi import FastAPI, Request
@@ -35,10 +52,11 @@ def login(request: Request):
     return templates.TemplateResponse(r"/html/1.html", {"request": request})
     # else:
     #     return {"Login": "Failed"}
-@app.get("/", summary=" 登录")
+
+
+@app.get("/ab", summary=" 登录")
 def login(request: Request):
     return templates.TemplateResponse(r"/html/input.html", {"request": request})
-
 
 
 # 事件监听
@@ -54,4 +72,4 @@ async def demo():
 
 # 运行app
 if __name__ == '__main__':
-    uvicorn.run(app='main:app', host='127.0.0.1', port=8080, reload=True)
+    uvicorn.run(app='main:app', host='localhost', port=5173, reload=True)
