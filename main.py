@@ -20,7 +20,7 @@ app = server.create_app()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins="http://localhost:8180/",
+    allow_origins="http://172.16.14.86:8180/",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,7 +39,7 @@ templates = Jinja2Templates(directory=r"vue")
 security = HTTPBasic()
 
 
-@app.get("/a")
+@app.get("/")
 def login_form(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
@@ -66,10 +66,10 @@ app.add_event_handler('startup', startup(app))
 app.add_event_handler('shutdown', stopping(app))
 
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8180",
+    "http://172.16.14.86.tiangolo.com",
+    "https://172.16.14.86.tiangolo.com",
+    "http://172.16.14.86",
+    "http://172.16.14.86:8180",
 ]
 
 app.add_middleware(
@@ -87,4 +87,4 @@ async def demo():
 
 # 运行app
 if __name__ == '__main__':
-    uvicorn.run(app='main:app', host='127.0.0.1', port=8180, reload=True)
+    uvicorn.run(app='main:app', host='172.16.14.86', port=8180, reload=True)
