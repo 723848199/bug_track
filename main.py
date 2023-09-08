@@ -3,7 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from core.events import startup, stopping
 from core.server import server
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -20,12 +20,12 @@ app = server.create_app()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins="http://localhost:5173/",
+    allow_origins="http://localhost:8180/",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.mount("/", StaticFiles(directory=r"E:\bug_track\vue"), name="dist")
+app.mount("/", StaticFiles(directory=r"vue"), name="dist")
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
@@ -34,8 +34,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 app = FastAPI()
-app.mount('/static', StaticFiles(directory=r"E:\bug_track\vue\static"), name="static")
-templates = Jinja2Templates(directory=r"E:\bug_track\vue")
+app.mount('/static', StaticFiles(directory=r"vue/static"), name="static")
+templates = Jinja2Templates(directory=r"vue")
 security = HTTPBasic()
 
 
@@ -54,9 +54,11 @@ def login(request: Request):
     #     return {"Login": "Failed"}
 
 
-@app.get("/ab", summary=" 登录")
-def login(request: Request):
-    return templates.TemplateResponse(r"/html/input.html", {"request": request})
+@app.post("/demo", summary=" 登录")
+def login(request: Request,username=Body()):
+    print(username)
+    return 23
+    # return templates.TemplateResponse(r"/html/input.html", {"request": request})
 
 
 # 事件监听
@@ -67,12 +69,12 @@ origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
     "http://localhost",
-    "http://localhost:8080",
+    "http://localhost:8180",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -83,7 +85,6 @@ async def demo():
     # print(user)
     return '123'
 
-
 # 运行app
 if __name__ == '__main__':
-    uvicorn.run(app='main:app', host='localhost', port=5173, reload=True)
+    uvicorn.run(app='main:app', host='127.0.0.1', port=8180, reload=True)
