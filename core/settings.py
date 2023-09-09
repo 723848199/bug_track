@@ -10,7 +10,6 @@ load_dotenv(find_dotenv(), override=True)
 class Settings:
     # 开发模式配置
     DEBUG: bool = True
-
     # 项目文档
     TITLE: str = 'bug_track'
     SUMMARY: str = 'api接口完善'

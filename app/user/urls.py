@@ -17,8 +17,8 @@ user_router = APIRouter(
 
 
 def user_routers(app: FastAPI):
-    app.include_router(login_router, tags=['登录'])
-    app.include_router(user_router, prefix='/user', tags=['用户'])
+    app.include_router(login_router, tags=['用户注册和登录接口'])
+    app.include_router(user_router, prefix='/user', tags=['用户退出和个人信息查看接口'])
 
 #
 # login_router.get("/")(login_form)
