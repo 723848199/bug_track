@@ -32,7 +32,7 @@ jwt token认证
 * `notebook` --笔记目录,和项目无关
 * `test` --单元测试目录
 * `main.py` --项目入口
-* `setting.py` --项目配置文件
+* `settings.py` --项目配置文件
 * `.env` --环境变量(本地文件,不上传代码仓)
 * `.gitginre` --git管理排除文件
 
