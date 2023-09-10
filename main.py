@@ -6,7 +6,7 @@ from service.events import startup, stopping
 
 app = server.create_app()
 
-# # 事件监听
+#  事件监听
 app.add_event_handler('startup', startup())
 app.add_event_handler('shutdown', stopping())
 
