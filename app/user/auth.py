@@ -1,14 +1,13 @@
 from datetime import datetime, timedelta
 from typing import Union
+
 from fastapi import Cookie, Response, Depends, status
 from jose import jwt
 from pydantic import ValidationError
 
 from app.user.models import User, Token
-from common.exception import HTTPException
-
-from core import setting
-from core import server
+from service import HTTPException, server
+from settings import setting
 
 
 def verify_password(plain_password, hashed_password):

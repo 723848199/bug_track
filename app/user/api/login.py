@@ -1,24 +1,13 @@
 from fastapi import Body, Depends, Response, Request
 from fastapi.security import OAuth2PasswordRequestForm
-from common.utils.tools import code_number
-from core import server
-from app.user.schemas import Login, UserOut
+
 from app.user.auth import verify_password, create_access_token
 from app.user.models import User, Token
-from common.exception import HTTPException
-from common.sms import SMS
+from app.user.schemas import Login, UserOut
+from service import HTTPException, server, SMS
+from service.utils.tools import code_number
 
 
-'''
-from main import templates, security
-async def login_form(request: Request, vue=None):
-    return templates.TemplateResponse(r"E:\bug_track\vue\login.html", {"request": request})
-def login_info(credentials: HTTPBasicCredentials = security):
-    if credentials.username == "admin" and credentials.password == "password":
-        return {"Login": "Success"}
-    else:
-        return {"Login": "Failed"}
-'''
 async def register(req: Request, user: Login = Body(), code: str = Body(default=None),
                    ):
     if await User.get_or_none(account=user.account):
@@ -70,5 +59,5 @@ async def send_sms(request: Request, phone: int = Body(default=...), code_type: 
     print(code)
     await SMS.send_code(phone=phone, code_type=code_type, code=code)
 
-    await  request.app.state.check.set(f"{phone}__{code_type}", code, ex=60 * 5)
+    await request.app.state.check.set(f"{phone}__{code_type}", code, ex=60 * 5)
     return '短信发送成功'

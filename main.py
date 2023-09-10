@@ -1,90 +1,54 @@
-import uvicorn as uvicorn
-from starlette.middleware.cors import CORSMiddleware
+import uvicorn
 
-from core.events import startup, stopping
-from core.server import server
-from fastapi import FastAPI, Body
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import Union
-
-
-class Item(BaseModel):
-    name: str
-    age: float
-    is_TrueMan: Union[bool, None] = None
-
+from app import router
+from service import server
+from service.events import startup, stopping
 
 app = server.create_app()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins="http://172.16.14.86:8180/",
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-app.mount("/", StaticFiles(directory=r"vue"), name="dist")
+# # 事件监听
+app.add_event_handler('startup', startup())
+app.add_event_handler('shutdown', stopping())
 
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
+# 链接 redis 数据库
+app.state.check = server.redis_link(0)  # 验证码缓存
+app.state.cache = server.redis_link(1)  # 数据缓存
 
-app = FastAPI()
-app.mount('/static', StaticFiles(directory=r"vue/static"), name="static")
-templates = Jinja2Templates(directory=r"vue")
-security = HTTPBasic()
+# 异常拦截
+server.exception()
+# 链接数据库
+server.db_link()
+# 跨域设置
+server.cors()
 
+# 挂接子路由
+router(app=app)
 
-@app.get("/")
-def login_form(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
-
-
-@app.get("/login", summary=" 登录")
-def login(request: Request):
-    # (credentials: HTTPBasicCredentials = security):
-    # if credentials.username == "admin" and credentials.password == "password":
-    # return templates.TemplateResponse("login.html", {"request": request})
-    return templates.TemplateResponse(r"/html/1.html", {"request": request})
-    # else:
-    #     return {"Login": "Failed"}
-
-
-@app.post("/demo", summary=" 登录")
-def login(request: Request,username=Body()):
-    print(username)
-    return 23
-    # return templates.TemplateResponse(r"/html/input.html", {"request": request})
-
-
-# 事件监听
-app.add_event_handler('startup', startup(app))
-app.add_event_handler('shutdown', stopping(app))
-
-origins = [
-    "http://172.16.14.86.tiangolo.com",
-    "https://172.16.14.86.tiangolo.com",
-    "http://172.16.14.86",
-    "http://172.16.14.86:8180",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-async def demo():
-    # user = await User.all()
-    # print(user)
-    return '123'
+# app.mount("/", StaticFiles(directory=r"vue"), name="dist")
+# app.mount('/static', StaticFiles(directory=r"vue/static"), name="static")
+# templates = Jinja2Templates(directory=r"vue")
+# security = HTTPBasic()
+#
+# @app.get("/")
+# def login_form(request: Request):
+#     return templates.TemplateResponse("login.html", {"request": request})
+#
+# @app.get("/login", summary=" 登录")
+# def login(request: Request):
+#     # (credentials: HTTPBasicCredentials = security):
+#     # if credentials.username == "admin" and credentials.password == "password":
+#     # return templates.TemplateResponse("login.html", {"request": request})
+#     return templates.TemplateResponse(r"/html/1.html", {"request": request})
+#     # else:
+#     #     return {"Login": "Failed"}
+#
+#
+# @app.post("/demo", summary=" 登录")
+# def login(request: Request,username=Body()):
+#     print(username)
+#     return 23
+#     # return templates.TemplateResponse(r"/html/input.html", {"request": request})
 
 # 运行app
 if __name__ == '__main__':
-    uvicorn.run(app='main:app', host='172.16.14.86', port=8180, reload=True)
+    uvicorn.run(app='main:app', host='127.0.0.1', port=8080, reload=True)

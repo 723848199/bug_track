@@ -1,12 +1,13 @@
+from typing import Union
+
 import redis
 from fastapi import FastAPI
 from passlib.context import CryptContext
-from redis.asyncio import Redis
+from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
-from typing import Union, Any
 
-from core.settings import setting
-from common.exception import FastAPIException
+from service import FastAPIException
+from settings import setting
 
 
 class Server:
@@ -48,6 +49,15 @@ class Server:
             self.redis = redis.asyncio.Redis(connection_pool=pool)
 
         return self.redis
+
+    def cors(self):
+        self.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
     @property
     def pwd_context(self) -> CryptContext:

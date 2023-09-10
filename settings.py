@@ -10,8 +10,9 @@ load_dotenv(find_dotenv(), override=True)
 class Settings:
     # 开发模式配置
     DEBUG: bool = True
+
     # 项目文档
-    TITLE: str = 'bug_track'
+    TITLE: str = 'Arya_api'
     SUMMARY: str = 'api接口完善'
     DESCRIPTION: str = "更多FastAPI知识"
     # 文档地址 默认为docs 生产环境关闭 None

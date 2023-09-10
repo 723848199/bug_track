@@ -1,10 +1,7 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError, ResponseValidationError
+from fastapi.responses import JSONResponse
 from starlette.requests import Request
-
-
-# from tools.utils.decorator import singleton
 
 
 class HTTPException(Exception):

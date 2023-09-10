@@ -4,8 +4,8 @@ from alibabacloud_dysmsapi20170525 import models as dysmsapi_20170525_models
 from alibabacloud_tea_util import models as util_models
 from pydantic import BaseModel
 
-from core import setting
-from common.exception import HTTPException
+from service import HTTPException
+from settings import setting
 
 
 class SMSAaLiInfo(BaseModel):

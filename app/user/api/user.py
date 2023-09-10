@@ -1,10 +1,10 @@
 from fastapi import Depends, Path, Response, Body
 
-from core import server
-from app.user.schemas import UserOut
 from app.user.auth import check_jwt_token
 from app.user.models import User, Token
-from common.exception import HTTPException
+from app.user.schemas import UserOut
+from service import HTTPException
+from service import server
 
 
 async def logout(response: Response, user: User = Depends(check_jwt_token)):
@@ -32,5 +32,3 @@ async def reset_password(user: User = Depends(check_jwt_token), new_password: st
     new_password = server.pwd_context.hash(new_password)
     await User.filter(pk=user.pk).update(password=new_password)
     return '操作成功'
-
-
