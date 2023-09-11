@@ -15,14 +15,11 @@ class User(Abstract):
     class Meta:
         table = 'users'
 
-    class PydanticMeta:
-        exclude = ['password']
-
 
 class UserGroup(Abstract):
     name = fields.CharField(max_length=50, description='用户组名称')
     user: fields.ForeignKeyNullableRelation[User] = fields.ForeignKeyField('User.User', related_name='user',
-                                                                            )
+                                                                           )
 
 
 class Token(Model):
@@ -30,30 +27,3 @@ class Token(Model):
                                                                            null=True)
     token = fields.CharField(max_length=255, null=True)
 
-
-from enum import IntEnum
-
-
-class Gender(IntEnum):
-    man = 1
-    woman = 2
-    secrecy = 0
-
-
-class UserModel(Abstract):
-    """
-    ipynb测试模型
-    """
-    account = fields.CharField(max_length=50, index=True, description='账号', null=True)
-    password = fields.CharField(max_length=100, index=True, description='密码')
-    gender = fields.IntEnumField(enum_type=Gender, defalut=Gender.secrecy.value, )
-    integral = fields.DecimalField(max_digits=10, decimal_places=5, null=True, default=None)
-
-
-class Class(Model):
-    name = fields.CharField(max_length=40)
-
-
-class Student(Model):
-    name = fields.CharField(max_length=30)
-    my_class: fields.ForeignKeyRelation[Class] = fields.ForeignKeyField('User.Class', related_name='students')

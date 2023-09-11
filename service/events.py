@@ -4,6 +4,7 @@ from typing import Callable
 # 事件监听
 def startup() -> Callable:
     async def app_start():
+
         print('启动完毕')
 
     return app_start
