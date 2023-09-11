@@ -69,9 +69,10 @@ python web 框架
 
 python orm 框架 (数据库中间件)
 官网地址: https://tortoise.github.io/
-> python 常用的 orm 框架是 SWLAlchemy orm, tortoise orm 是受 django 启发的异步 orm 框架,用法基本与 django 的一直,可以直接看参考
-> django 文档.
-> SWLAlchemy 语法与 SQL 语法类似,需要自己实现 crud ,对异步支持不是很好,学习曲线重.
+> python 常用的 orm 框架是 SWLAlchemy orm, tortoise orm 是受 django 启发的异步 orm 框架,用法基本与 django 的一致,
+> 可以直接参考 django 文档.
+
+> SWLAlchemy 语法与 SQL 语法类似,需要自己实现 crud ,对异步支持不是很好,学习曲线重.功能全
 > tortoise orm 为异步创建的 orm 框架,使用方式比SWLAlchemy简单,性能强,
 
 ### postgresql
