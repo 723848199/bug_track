@@ -53,9 +53,13 @@ class Server:
     def cors(self):
         self.app.add_middleware(
             CORSMiddleware,
+            # 允许访问的请求地址
             allow_origins=["*"],
+            # 允许跨越发送cookie
             allow_credentials=True,
+            # 允许访问的请求方式，*--》 全部
             allow_methods=["*"],
+            # 放行全部原始头信息
             allow_headers=["*"],
         )
 

@@ -93,13 +93,3 @@ async def check_jwt_token(token: str = Cookie(default='')) -> Union[User, None]:
         raise HTTPException(code=status.HTTP_401_UNAUTHORIZED, msg='token验证失败')
 
 
-async def check_admin_token(user: User = Depends(check_jwt_token)):
-    """
-    验证用户是否为管理员
-    :param user:
-    :return:
-    """
-    # if user.type == UserType.admin:
-    #     return user
-    # else:
-    #     raise HTTPException(code=status.HTTP_401_UNAUTHORIZED, msg='token验证失败,用户非管理员')
